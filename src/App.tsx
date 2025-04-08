@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Box, Container, VStack, Input, Button, Text, useColorMode, HStack, Image, Switch, UnorderedList, OrderedList, ListItem, Flex, Heading } from '@chakra-ui/react'
+import { useState, useEffect, useRef } from 'react'
+import { Box, Container, VStack, Input, Button, Text, useColorMode, HStack, Image, Switch, UnorderedList, OrderedList, ListItem, Flex, Heading, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Checkbox, useDisclosure } from '@chakra-ui/react'
 import laymanProfile from './assets/layman_profile.png'
 import corporateProfile from './assets/corporate_profile.png'
 
@@ -14,9 +14,33 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const { colorMode, toggleColorMode } = useColorMode()
   const isDark = colorMode === 'dark'
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true })
+  const [dontShowAgain, setDontShowAgain] = useState(false)
   
   // Get API key from environment variable
   const apiKey = import.meta.env.VITE_CHATGPT_KEY
+
+  // Check if modal should be shown based on local storage
+  useEffect(() => {
+    const hideModal = localStorage.getItem('hideWelcomeModal')
+    if (hideModal === 'true') {
+      onClose()
+    }
+  }, [onClose])
+
+  // Handle modal close with checkbox state
+  const handleModalClose = () => {
+    if (dontShowAgain) {
+      localStorage.setItem('hideWelcomeModal', 'true')
+    }
+    onClose()
+  }
+
+  // Scroll to bottom whenever messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
 
   // Function to format message content with proper list rendering
   const formatMessageContent = (content: string) => {
@@ -125,6 +149,25 @@ function App() {
       bg={isDark ? 'gray.900' : 'gray.50'}
       color={isDark ? 'white' : 'gray.800'}
     >
+      {/* Welcome Modal */}
+      <Modal isOpen={isOpen} onClose={handleModalClose} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader textAlign="center">Welcome to Layman to Corporate Speak</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <Text mb={4} textAlign="center">A fun tool to translate anything you say into corporate speak.</Text>
+            <Checkbox 
+              mb={4} 
+              isChecked={dontShowAgain} 
+              onChange={(e) => setDontShowAgain(e.target.checked)}
+            >
+              Don't show this again
+            </Checkbox>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+
       {/* Header */}
       <Box 
         as="header" 
@@ -232,6 +275,8 @@ function App() {
                     )}
                   </Box>
                 ))}
+                {/* Invisible element to scroll to */}
+                <div ref={messagesEndRef} />
               </VStack>
             </Box>
 
