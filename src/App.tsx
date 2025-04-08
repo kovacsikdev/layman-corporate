@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Box, Container, VStack, Input, Button, Text, useColorMode, HStack, Image, Switch, UnorderedList, OrderedList, ListItem, Flex, Heading, IconButton, useToast } from '@chakra-ui/react'
 import laymanProfile from './assets/layman_profile.png'
 import corporateProfile from './assets/corporate_profile.png'
