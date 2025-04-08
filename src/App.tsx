@@ -155,7 +155,7 @@ function App() {
 
   return (
     <Box
-      minH="100vh"
+      minH="100%"
       bg={isDark ? 'gray.900' : 'gray.50'}
       color={isDark ? 'white' : 'gray.800'}
     >
