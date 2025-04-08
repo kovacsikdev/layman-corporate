@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Container, VStack, Input, Button, Text, useColorMode, HStack, Image, Switch, UnorderedList, OrderedList, ListItem, Flex, Heading, IconButton, useToast } from '@chakra-ui/react'
+import { Box, Container, VStack, Input, Button, Text, useColorMode, HStack, Image, Switch, UnorderedList, OrderedList, ListItem, Flex, Heading } from '@chakra-ui/react'
 import laymanProfile from './assets/layman_profile.png'
 import corporateProfile from './assets/corporate_profile.png'
 
@@ -14,42 +14,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const { colorMode, toggleColorMode } = useColorMode()
   const isDark = colorMode === 'dark'
-  const toast = useToast()
   
   // Get API key from environment variable
   const apiKey = import.meta.env.VITE_CHATGPT_KEY
-
-  const handleCopyToClipboard = async (content: string) => {
-    try {
-      await navigator.clipboard.writeText(content)
-      toast({
-        title: "Copied to clipboard",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-        position: "top-right"
-      })
-    } catch (error) {
-      toast({
-        title: "Failed to copy",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-        position: "top-right"
-      })
-    }
-  }
-
-  const handleClearChat = () => {
-    setMessages([])
-    toast({
-      title: "Chat cleared",
-      status: "info",
-      duration: 2000,
-      isClosable: true,
-      position: "top-right"
-    })
-  }
 
   // Function to format message content with proper list rendering
   const formatMessageContent = (content: string) => {
@@ -262,39 +229,12 @@ function App() {
                     ) : (
                       <Box position="relative">
                         {formatMessageContent(message.content)}
-                        <IconButton
-                          icon={<Text fontSize="lg">📋</Text>}
-                          aria-label="Copy to clipboard"
-                          size="sm"
-                          position="absolute"
-                          top={2}
-                          right={2}
-                          variant="ghost"
-                          onClick={() => handleCopyToClipboard(message.content)}
-                        />
                       </Box>
                     )}
                   </Box>
                 ))}
               </VStack>
             </Box>
-
-            {/* Clear Chat Button */}
-            {messages.length > 0 && (
-              <IconButton
-                icon={<Text fontSize="xl">🗑️</Text>}
-                aria-label="Clear chat"
-                position="absolute"
-                bottom={24}
-                right={4}
-                colorScheme="red"
-                variant="solid"
-                onClick={handleClearChat}
-                zIndex={2}
-                opacity={0.8}
-                _hover={{ opacity: 1 }}
-              />
-            )}
 
             {/* Input Area */}
             <Box
