@@ -212,7 +212,7 @@ function App() {
               objectFit="cover"
               transform="scaleX(-1)"
             />
-            <Text fontWeight="bold" textAlign="center">Corporate View</Text>
+            <Text fontWeight="bold" textAlign="center">Corporate</Text>
           </VStack>
         </Box>
 
@@ -353,7 +353,7 @@ function App() {
               objectFit="cover"
               transform="scaleX(-1)"
             />
-            <Text fontWeight="bold" textAlign="center">Layman's View</Text>
+            <Text fontWeight="bold" textAlign="center">Layman</Text>
           </VStack>
         </Box>
       </HStack>
