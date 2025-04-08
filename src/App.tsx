@@ -16,7 +16,7 @@ function App() {
   const isDark = colorMode === 'dark'
   const toast = useToast()
   
-  // Get API key from environment variables
+  // Get API key from environment variable
   const apiKey = import.meta.env.VITE_CHATGPT_KEY
 
   const handleCopyToClipboard = async (content: string) => {
