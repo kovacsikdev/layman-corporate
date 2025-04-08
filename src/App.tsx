@@ -125,7 +125,177 @@ function App() {
       bg={isDark ? 'gray.900' : 'gray.50'}
       color={isDark ? 'white' : 'gray.800'}
     >
-      
+      {/* Header */}
+      <Box 
+        as="header" 
+        py={4} 
+        px={6} 
+        height="73px"
+        bg={isDark ? 'gray.800' : 'white'} 
+        borderBottom="1px" 
+        borderColor={isDark ? 'gray.700' : 'gray.200'}
+        position="sticky"
+        top={0}
+        zIndex={10}
+      >
+        <Flex justify="space-between" align="center" position="relative" h="full">
+          {/* Empty box to balance the layout */}
+          <Box w="100px" />
+          
+          {/* Centered heading */}
+          <Heading size="md" position="absolute" left="50%" transform="translateX(-50%)" my="auto">
+            Layman to corporate speak
+          </Heading>
+          
+          {/* Theme toggle */}
+          <HStack spacing={2} minW="100px" justify="flex-end" align="center">
+            <Text fontSize="sm">🌞</Text>
+            <Switch 
+              isChecked={isDark} 
+              onChange={toggleColorMode}
+              colorScheme="blue"
+            />
+            <Text fontSize="sm">🌙</Text>
+          </HStack>
+        </Flex>
+      </Box>
+
+      <HStack spacing={0} align="stretch" justifyContent="center" h="calc(100vh - 73px)">
+        {/* Left Profile Image - Now Corporate */}
+        <Box 
+          w="250px" 
+          display={{ base: "none", md: "block" }}
+          p={4}
+          borderRight="1px"
+          borderColor={isDark ? 'gray.700' : 'gray.200'}
+        >
+          <VStack spacing={4} align="center" justify="center" h="full">
+            <Image 
+              src={corporateProfile} 
+              alt="Corporate Profile" 
+              borderRadius="full" 
+              boxSize="200px"
+              objectFit="cover"
+              transform="scaleX(-1)"
+            />
+            <Text fontWeight="bold" textAlign="center">Corporate</Text>
+          </VStack>
+        </Box>
+
+        {/* Main Chat Container */}
+        <Container
+          p={0} 
+          flex={1} 
+          position="relative"
+          margin={0}
+        >
+          <VStack h="full" spacing={0}>
+            {/* Messages Area */}
+            <Box
+              flex={1}
+              w="full"
+              overflowY="auto"
+              p={4}
+              css={{
+                '&::-webkit-scrollbar': {
+                  width: '4px',
+                },
+                '&::-webkit-scrollbar-track': {
+                  width: '6px',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  background: isDark ? 'gray.600' : 'gray.300',
+                  borderRadius: '24px',
+                },
+              }}
+            >
+              <VStack spacing={4} align="stretch">
+                {messages.map((message, index) => (
+                  <Box
+                    key={index}
+                    p={4}
+                    bg={message.role === 'user' 
+                      ? (isDark ? 'blue.900' : 'blue.50')
+                      : (isDark ? 'gray.800' : 'white')
+                    }
+                    borderRadius="lg"
+                    maxW="80%"
+                    alignSelf={message.role === 'user' ? 'flex-end' : 'flex-start'}
+                    position="relative"
+                  >
+                    {message.role === 'user' ? (
+                      <Text>{message.content}</Text>
+                    ) : (
+                      <Box position="relative">
+                        {formatMessageContent(message.content)}
+                      </Box>
+                    )}
+                  </Box>
+                ))}
+              </VStack>
+            </Box>
+
+            {/* Input Area */}
+            <Box
+              w="full"
+              p={4}
+              borderTop="1px"
+              borderColor={isDark ? 'gray.700' : 'gray.200'}
+              bg={isDark ? 'gray.900' : 'white'}
+            >
+              <form onSubmit={handleSubmit}>
+                <VStack spacing={4}>
+                  <Input
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Type your message..."
+                    size="lg"
+                    bg={isDark ? 'gray.800' : 'white'}
+                    borderColor={isDark ? 'gray.600' : 'gray.200'}
+                    _hover={{
+                      borderColor: isDark ? 'gray.500' : 'gray.300',
+                    }}
+                    _focus={{
+                      borderColor: 'blue.500',
+                      boxShadow: 'none',
+                    }}
+                  />
+                  <Button
+                    type="submit"
+                    colorScheme="blue"
+                    size="lg"
+                    w="full"
+                    isLoading={isLoading}
+                  >
+                    Send Message
+                  </Button>
+                </VStack>
+              </form>
+            </Box>
+          </VStack>
+        </Container>
+
+        {/* Right Profile Image - Now Layman */}
+        <Box 
+          w="250px" 
+          display={{ base: "none", md: "block" }}
+          p={4}
+          borderLeft="1px"
+          borderColor={isDark ? 'gray.700' : 'gray.200'}
+        >
+          <VStack spacing={4} align="center" justify="center" h="full">
+            <Image 
+              src={laymanProfile} 
+              alt="Layman Profile" 
+              borderRadius="full" 
+              boxSize="200px"
+              objectFit="cover"
+              transform="scaleX(-1)"
+            />
+            <Text fontWeight="bold" textAlign="center">Layman</Text>
+          </VStack>
+        </Box>
+      </HStack>
     </Box>
   )
 }
