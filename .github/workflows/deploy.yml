@@ -9,6 +9,9 @@ on:
 env:
   VITE_CHATGPT_KEY: ${{ secrets.VITE_CHATGPT_KEY }}
 
+permissions:
+  id-token: write
+  
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -35,7 +38,7 @@ jobs:
         with:
           # Upload dist folder
           path: './dist'
-          
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
