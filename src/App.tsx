@@ -19,11 +19,6 @@ function App() {
   // Get API key from environment variables
   const apiKey = import.meta.env.VITE_CHATGPT_KEY
 
-  // Log color mode changes for debugging
-  useEffect(() => {
-    console.log('Current color mode:', colorMode)
-  }, [colorMode])
-
   const handleCopyToClipboard = async (content: string) => {
     try {
       await navigator.clipboard.writeText(content)
