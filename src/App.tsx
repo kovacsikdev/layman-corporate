@@ -55,7 +55,6 @@ function App() {
           }
         }
         
-        // Regular paragraph
         return <Text key={index} mb={2}>{paragraph}</Text>;
       });
     }
