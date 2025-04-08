@@ -164,7 +164,7 @@ function App() {
       <HStack spacing={0} align="stretch" justifyContent="center" h="calc(100vh - 73px)">
         {/* Left Profile Image - Now Corporate */}
         <Box 
-          w="200px" 
+          w="250px" 
           display={{ base: "none", md: "block" }}
           p={4}
           borderRight="1px"
@@ -175,7 +175,7 @@ function App() {
               src={corporateProfile} 
               alt="Corporate Profile" 
               borderRadius="full" 
-              boxSize="150px"
+              boxSize="200px"
               objectFit="cover"
               transform="scaleX(-1)"
             />
@@ -278,7 +278,7 @@ function App() {
 
         {/* Right Profile Image - Now Layman */}
         <Box 
-          w="200px" 
+          w="250px" 
           display={{ base: "none", md: "block" }}
           p={4}
           borderLeft="1px"
@@ -289,7 +289,7 @@ function App() {
               src={laymanProfile} 
               alt="Layman Profile" 
               borderRadius="full" 
-              boxSize="150px"
+              boxSize="200px"
               objectFit="cover"
               transform="scaleX(-1)"
             />
