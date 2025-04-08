@@ -286,7 +286,7 @@ function App() {
           <VStack spacing={4} align="center" justify="center" h="full">
             <Image 
               src={laymanProfile} 
-              alt="Layman Profile" 
+              alt="Layman Profile pic" 
               borderRadius="full" 
               boxSize="200px"
               objectFit="cover"
