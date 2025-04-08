@@ -9,6 +9,9 @@ on:
 env:
   VITE_CHATGPT_KEY: ${{ secrets.VITE_CHATGPT_KEY }}
 
+permissions:
+  id-token: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
